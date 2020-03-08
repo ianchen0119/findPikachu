@@ -1,12 +1,12 @@
-#findPikachu
+# findPikachu
 
-##Skills
+## Skills
 
 - Vue.js
 - axios
 - Azure
 
-##How to use
+## How to use
 
 1. enter any url of image about Pikachu.
 
