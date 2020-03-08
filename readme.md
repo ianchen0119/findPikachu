@@ -1,6 +1,6 @@
 # findPikachu
 
-##Demo
+## Demo
 
 [Demo](https://ianchen0119.github.io/pikaPrvateForDemo/)
 
