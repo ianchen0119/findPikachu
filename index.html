@@ -55,12 +55,12 @@
 				sendAPI(){
 					let config={
 						headers:{
-							"Prediction-Key":"8b73faa3ba2c4f0cb2f2a4e668a49eb7",
+							"Prediction-Key":"",
 							"Content-Type":"application/json"
 						}
 					}
 					axios
-			        .post("https://106360734.cognitiveservices.azure.com/customvision/v3.0/Prediction/9e07e00c-00f2-428c-899d-fa1a056988a5/detect/iterations/pika/url",{"Url":`${this.url}`},config)
+			        .post("",{"Url":`${this.url}`},config)
 			        .then(response => {
 			          this.result = response.data.predictions;
 			          for (let i = 0; i<this.result.length; i++) {
