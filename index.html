@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FindPika</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<style>
+		*,
+		*::after,
+		*::before{
+			margin: 0;
+		}
+		.tag
+		{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+		}
+		.block{
+			border: 1px solid red;
+			position: absolute;
+			z-index: 10;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		
+		<img class="img" :src="url" alt="">
+		<div v-if="result!==null">
+		<div v-for="(data,index) in result">
+			<div class="block" :style="styleArr[index]" v-if="data.probability>0.3">
+				<div class="tag">
+					{{data.tagName}},{{data.probability}}
+				</div>
+			</div>
+		</div>
+		</div>
+		<h1>FindPika</h1>
+		<input type="text" name="" id="" v-model="url"><button @click="sendAPI">send</button>
+	</div>
+	<script>
+		var app = new Vue({
+			el:'#app',
+			data(){
+				return {
+					url:null,
+					result:null,
+					styleArr:[]
+				}
+			},
+			methods:{
+				sendAPI(){
+					let config={
+						headers:{
+							"Prediction-Key":"8b73faa3ba2c4f0cb2f2a4e668a49eb7",
+							"Content-Type":"application/json"
+						}
+					}
+					axios
+			        .post("https://106360734.cognitiveservices.azure.com/customvision/v3.0/Prediction/9e07e00c-00f2-428c-899d-fa1a056988a5/detect/iterations/pika/url",{"Url":`${this.url}`},config)
+			        .then(response => {
+			          this.result = response.data.predictions;
+			          for (let i = 0; i<this.result.length; i++) {
+			          	let imgWidth = document.querySelector('.img').width;
+			          	let imgHeight = document.querySelector('.img').height;
+			          	let { width, height, left, top} = this.result[i].boundingBox;
+			          	this.styleArr.push({
+			          		width: `${width*imgWidth}px`,
+			          		height:`${height*imgHeight}px`,
+			          		top:`${top*imgHeight}px`,
+			          		left:`${left*imgWidth}px`
+			          	})
+			          }
+			          console.log(response);
+			        })
+			        .catch(error => {
+			       	  console.log(config)
+			          console.log(error);
+			        
+			        })
+					}
+				}	
+		})
+	</script>
+</body>
+</html>
