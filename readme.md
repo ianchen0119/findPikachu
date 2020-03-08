@@ -1,5 +1,9 @@
 # findPikachu
 
+##Demo
+
+[Demo](https://ianchen0119.github.io/pikaPrvateForDemo/)
+
 ## Skills
 
 - Vue.js
